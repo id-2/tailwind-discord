@@ -9,10 +9,10 @@ const App = () => {
         ))}
       </div>
       <div className="bg-gray-800 w-60 flex flex-col">
-        <div className="px-3 shadow-md h-12 flex items-center text-white">
+        <div className="px-3 shadow-md h-12 flex items-center text-white font-title">
           Tailwind CSS
         </div>
-        <div className="p-3 flex-1 overflow-y-scroll space-y-2">
+        <div className="p-3 flex-1 overflow-y-scroll space-y-2 font-medium">
           {[...Array(40)].map((_, i) => (
             <p>Channels {i}</p>
           ))}
