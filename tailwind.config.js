@@ -10,6 +10,7 @@ module.exports = {
         title: ["Ginto", "Open Sans", ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        brand: "#5865F2",
         gray: {
           200: "#DCDDDE",
           300: "#B9BBBE",
