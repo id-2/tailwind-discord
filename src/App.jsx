@@ -1,18 +1,34 @@
 const App = () => {
   return (
     <div className="flex text-white h-screen">
-      <div className="bg-gray-800 p-4">
-        <div className="bg-white text-gray-800 w-12 h-12 flex items-center justify-center rounded-full">
-          TW
-        </div>
+      <div className="bg-gray-800 p-3 space-y-2 overflow-y-scroll">
+        {[...Array(40)].map((_, i) => (
+          <div className="bg-white text-gray-800 w-12 h-12 flex items-center justify-center rounded-full">
+            {i}
+          </div>
+        ))}
       </div>
       <div className="bg-gray-700 w-60 flex flex-col">
-        <div className="p-4 shadow-md">Tailwind CSS</div>
-        <div className="p-4 flex-1">Channels</div>
+        <div className="px-3 shadow-md h-12 flex items-center">
+          Tailwind CSS
+        </div>
+        <div className="p-3 flex-1 overflow-y-scroll space-y-2">
+          {[...Array(40)].map((_, i) => (
+            <p>Channels {i}</p>
+          ))}
+        </div>
       </div>
       <div className="bg-gray-600 flex-1 flex flex-col">
-        <div className="p-4 shadow-md">General</div>
-        <div className="flex-1 p-4">Messages</div>
+        <div className="p-3 shadow-md">General</div>
+        <div className="flex-1 p-4 overflow-y-scroll space-y-2">
+          {[...Array(40)].map((_, i) => (
+            <p>
+              Messages {i}: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Donec sed maximus neque. Duis ut rhoncus nisi. Vestibulum
+              vitae ex odio. Sed sagittis viverra ligula volutpat suscipit.
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );
