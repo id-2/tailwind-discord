@@ -2,7 +2,7 @@ const App = () => {
   return (
     <div className="flex h-screen text-gray-200">
       <div className="bg-gray-900 p-3 space-y-2 overflow-y-scroll">
-        <div className="bg-gray-700 w-12 h-12 flex items-center justify-center rounded-full text-gray-100 hover:bg-brand hover:text-white transition duration-200">
+        <div className="bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100 hover:bg-brand hover:text-white transition-all duration-200 hover:rounded-2xl">
           <DiscordIcon className="w-7 h-5" />
         </div>
       </div>
