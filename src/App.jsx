@@ -1,4 +1,4 @@
-import { Link, Route, Routes, useLocation, useRoutes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Home";
 import Server1 from "./Server1";
 
@@ -9,25 +9,50 @@ const App = () => {
     <>
       <div className="flex h-screen text-gray-200">
         <div className="bg-gray-900 p-3 space-y-2 overflow-y-scroll">
-          <div
-            className={`${
-              route.pathname === "/"
-                ? "bg-brand text-white"
-                : "hover:bg-brand hover:text-white transition-all duration-200 hover:rounded-2xl"
-            } bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100`}
-          >
+          <div className="relative group">
+            <div
+              className={`${
+                route.pathname === "/"
+                  ? "h-10"
+                  : "h-5 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100"
+              } absolute w-1  bg-white -left-3 top-1/2 -translate-y-1/2 rounded-r transition-all duration-200 origin-left`}
+            />
             <Link to="/">
-              <DiscordIcon className="w-7 h-5" />
+              <div className="group-active:translate-y-px">
+                <div
+                  className={`${
+                    route.pathname === "/"
+                      ? "bg-brand text-white rounded-2xl"
+                      : "group-hover:bg-brand group-hover:text-white group-hover:rounded-2xl transition-all duration-200"
+                  } bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100`}
+                >
+                  <DiscordIcon className="w-7 h-5" />
+                </div>
+              </div>
             </Link>
           </div>
-          <div
-            className={`${
-              route.pathname === "/server-1"
-                ? "bg-brand text-white"
-                : "hover:bg-brand hover:text-white transition-all duration-200 hover:rounded-2xl"
-            } bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100`}
-          >
-            <Link to="/server-1">S1</Link>
+
+          <div className="relative group">
+            <div
+              className={`${
+                route.pathname === "/server-1"
+                  ? "h-10"
+                  : "h-5 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100"
+              } absolute w-1 bg-white -left-3 top-1/2 -translate-y-1/2 rounded-r transition-all duration-200 origin-left`}
+            />
+            <Link to="/server-1">
+              <div className="group-active:translate-y-px">
+                <div
+                  className={`${
+                    route.pathname === "/server-1"
+                      ? "bg-brand text-white rounded-2xl"
+                      : "group-hover:bg-brand group-hover:text-white group-hover:rounded-2xl transition-all duration-200"
+                  } bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100`}
+                >
+                  S1
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
         <Routes>
