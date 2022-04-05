@@ -1,34 +1,41 @@
+import { Link, Route, Routes, useLocation, useRoutes } from "react-router-dom";
+import Home from "./Home";
+import Server1 from "./Server1";
+
 const App = () => {
+  const route = useLocation();
+
   return (
-    <div className="flex h-screen text-gray-200">
-      <div className="bg-gray-900 p-3 space-y-2 overflow-y-scroll">
-        <div className="bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100 hover:bg-brand hover:text-white transition-all duration-200 hover:rounded-2xl">
-          <DiscordIcon className="w-7 h-5" />
+    <>
+      <div className="flex h-screen text-gray-200">
+        <div className="bg-gray-900 p-3 space-y-2 overflow-y-scroll">
+          <div
+            className={`${
+              route.pathname === "/"
+                ? "bg-brand text-white"
+                : "hover:bg-brand hover:text-white transition-all duration-200 hover:rounded-2xl"
+            } bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100`}
+          >
+            <Link to="/">
+              <DiscordIcon className="w-7 h-5" />
+            </Link>
+          </div>
+          <div
+            className={`${
+              route.pathname === "/server-1"
+                ? "bg-brand text-white"
+                : "hover:bg-brand hover:text-white transition-all duration-200 hover:rounded-2xl"
+            } bg-gray-700 w-12 h-12 flex items-center justify-center rounded-3xl text-gray-100`}
+          >
+            <Link to="/server-1">S1</Link>
+          </div>
         </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/server-1" element={<Server1 />} />
+        </Routes>
       </div>
-      <div className="bg-gray-800 w-60 flex flex-col">
-        <div className="px-3 shadow-md h-12 flex items-center text-white font-title">
-          Tailwind CSS
-        </div>
-        <div className="p-3 flex-1 overflow-y-scroll space-y-2 font-medium">
-          {[...Array(40)].map((_, i) => (
-            <p>Channels {i}</p>
-          ))}
-        </div>
-      </div>
-      <div className="bg-gray-600 flex-1 flex flex-col">
-        <div className="p-3 shadow-md text-white">General</div>
-        <div className="flex-1 p-4 overflow-y-scroll space-y-2">
-          {[...Array(40)].map((_, i) => (
-            <p>
-              Messages {i}: Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Donec sed maximus neque. Duis ut rhoncus nisi. Vestibulum
-              vitae ex odio. Sed sagittis viverra ligula volutpat suscipit.
-            </p>
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
