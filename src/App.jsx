@@ -1,11 +1,6 @@
 import { Link, matchPath, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Home";
-
-let servers = [
-  { id: "1", img: "tailwind.png" },
-  { id: "2", img: "next.png" },
-  { id: "3", img: "mirage.png" },
-];
+import { data } from "./data";
 
 const App = () => {
   const location = useLocation();
@@ -27,10 +22,10 @@ const App = () => {
 
           <hr className="mx-2 rounded border-t-2 border-t-[rgba(79,84,92,0.48)]" />
 
-          {servers.map((item) => (
+          {data.map((item) => (
             <NavLink
-              href={`/servers/${item.id}/channels/1`}
-              active={match?.params.id === item.id}
+              href={`/servers/${item.id}/channels/${item.categories[0].channels[0].id}`}
+              active={+match?.params.id === +item.id}
               key={item.id}
             >
               <img src={`/servers/${item.img}`} alt="" />

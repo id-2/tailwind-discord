@@ -7,8 +7,9 @@ const Home = () => {
   const params = useParams();
   const [closedCategories, setClosedCategories] = useState([]);
 
-  const servers = data[params.id]?.categories;
-  const channels = servers.map((item) => item.channels).flat();
+  const server = data.find((item) => +item.id === +params.id);
+  const categories = server.categories;
+  const channels = categories.map((item) => item.channels).flat();
   const channel = channels.find((item) => +item.id === +params.channelID);
 
   const toggleCategory = (categoryID) => {
@@ -31,7 +32,7 @@ const Home = () => {
           <Icons.Chevron className="ml-auto h-[18px] w-[18px] opacity-80" />
         </button>
         <div className="flex-1 space-y-[21px] overflow-y-scroll pt-3 font-medium">
-          {data[1].categories.map((category) => (
+          {categories.map((category) => (
             <div key={category.id}>
               {category.label ? (
                 <button
@@ -144,7 +145,7 @@ function ChannelLink({ channel }) {
 
   return (
     <Link
-      to={`/servers/1/channels/${channel.id}`}
+      to={`/servers/${params.id}/channels/${channel.id}`}
       className={`${classes[state]} group relative mx-2 flex items-center rounded py-1 pl-2 pr-2.5`}
     >
       {state === "inactiveUnread" ? (
