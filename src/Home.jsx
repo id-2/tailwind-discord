@@ -110,14 +110,15 @@ const Home = () => {
             </button>
           </div>
         </div>
-        <div className="flex-1 space-y-4 overflow-y-scroll p-3">
-          {[...Array(40)].map((_, i) => (
-            <p key={i}>
-              Message {i}. Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Vel saepe laudantium sed reprehenderit incidunt! Hic rem
-              quos reiciendis, fugit quae ratione beatae veniam laborum
-              voluptatem, iusto dolorum, voluptates suscipit quia.
-            </p>
+        <div className="flex-1 overflow-y-scroll">
+          {channel.messages.map((message, i) => (
+            <div key={i}>
+              {i === 0 || message.user !== channel.messages[i - 1].user ? (
+                <MessageWithUser message={message} />
+              ) : (
+                <Message message={message} />
+              )}
+            </div>
           ))}
         </div>
       </div>
@@ -158,6 +159,31 @@ function ChannelLink({ channel }) {
         } ml-auto h-4 w-4 text-gray-300 hover:text-gray-200`}
       />
     </Link>
+  );
+}
+
+function MessageWithUser({ message }) {
+  return (
+    <div className="mt-[17px] flex px-4 py-1 pl-4 pr-16 leading-[22px] hover:bg-gray-950/[0.07] hover:bg-opacity-30">
+      <img className="mr-4 h-10 w-10 rounded-full" src={message.avatarUrl} />
+      <div>
+        <p className="flex items-baseline">
+          <span className="mr-2 text-sm font-medium text-emerald-600">
+            {message.user}
+          </span>
+          <span className="text-xs text-gray-400">{message.date}</span>
+        </p>
+        <p className="text-slate-300">{message.text}</p>
+      </div>
+    </div>
+  );
+}
+
+function Message({ message }) {
+  return (
+    <div className="px-4 py-0.5 pl-4 pr-16 leading-[22px] hover:bg-gray-950/[0.07] hover:bg-opacity-30">
+      <p className="pl-14 text-slate-300">{message.text}</p>
+    </div>
   );
 }
 
