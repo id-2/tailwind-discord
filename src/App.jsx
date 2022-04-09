@@ -1,6 +1,5 @@
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, matchPath, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Home";
-import Server from "./Server";
 
 let servers = [
   { id: "1", img: "tailwind.png" },
@@ -9,6 +8,15 @@ let servers = [
 ];
 
 const App = () => {
+  const location = useLocation();
+  const match = matchPath(
+    {
+      path: "/servers/:id",
+      end: false,
+    },
+    location.pathname
+  );
+
   return (
     <>
       <div className="flex h-screen text-gray-200">
@@ -20,14 +28,18 @@ const App = () => {
           <hr className="mx-2 rounded border-t-2 border-t-[rgba(79,84,92,0.48)]" />
 
           {servers.map((item) => (
-            <NavLink href={`/servers/${item.id}`} key={item.id}>
+            <NavLink
+              href={`/servers/${item.id}/channels/1`}
+              active={match?.params.id === item.id}
+              key={item.id}
+            >
               <img src={`/servers/${item.img}`} alt="" />
             </NavLink>
           ))}
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/servers/:id" element={<Server />} />
+          <Route path="/servers/:id/channels/:channelID" element={<Home />} />
         </Routes>
       </div>
     </>
@@ -45,14 +57,15 @@ function DiscordIcon(props) {
   );
 }
 
-function NavLink({ href, children }) {
+function NavLink({ href, children, active }) {
   const route = useLocation();
+  active ||= route.pathname === href;
 
   return (
     <div className="group relative">
       <div
         className={`${
-          route.pathname === href
+          active
             ? "h-10"
             : "h-5 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
         } absolute -left-3  top-1/2 w-1 origin-left -translate-y-1/2 rounded-r bg-white transition-all duration-200`}
@@ -61,7 +74,7 @@ function NavLink({ href, children }) {
         <div className="group-active:translate-y-px">
           <div
             className={`${
-              route.pathname === href
+              active
                 ? "rounded-2xl bg-brand text-white"
                 : "rounded-3xl bg-gray-700 text-gray-100 transition-all duration-200 group-hover:rounded-2xl group-hover:bg-brand group-hover:text-white"
             }  flex h-12 w-12 items-center justify-center overflow-hidden`}

@@ -1,3 +1,4 @@
+import { Link, useParams } from "react-router-dom";
 import * as Icons from "./components/icons";
 import data from "./data.json";
 
@@ -23,7 +24,7 @@ const Home = () => (
             ) : null}
             <div className="mt-1 space-y-0.5">
               {category.channels.map((channel) => (
-                <ChannelLink channel={channel} />
+                <ChannelLink channel={channel} key={channel.id} />
               ))}
             </div>
           </div>
@@ -38,18 +39,27 @@ const Home = () => (
 );
 
 function ChannelLink({ channel }) {
-  let Icon = channel.icon ? Icons[channel.icon] : Icons.Hashtag;
+  const params = useParams();
+  const Icon = channel.icon ? Icons[channel.icon] : Icons.Hashtag;
+  const active = +params.channelID === +channel.id;
 
   return (
-    <a
-      href="#"
-      className="group mx-2 flex items-center rounded py-1 pl-2 pr-2.5 text-gray-500 hover:bg-gray-550/40 hover:text-gray-200"
-      key={channel.id}
+    <Link
+      to={`/servers/1/channels/${channel.id}`}
+      className={`${
+        active
+          ? "bg-gray-550/40 text-white"
+          : "text-gray-500 hover:bg-gray-550/40 hover:text-gray-200"
+      } group mx-2 flex items-center rounded py-1 pl-2 pr-2.5  `}
     >
       <Icon className="mr-1.5 h-5 w-5 text-gray-525" />
       {channel.label}
-      <Icons.AddPerson className="ml-auto h-4 w-4 text-gray-300 opacity-0 hover:text-gray-200 group-hover:opacity-100" />
-    </a>
+      <Icons.AddPerson
+        className={`${
+          active ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        } ml-auto h-4 w-4 text-gray-300  hover:text-gray-200 `}
+      />
+    </Link>
   );
 }
 
