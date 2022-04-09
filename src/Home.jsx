@@ -17,7 +17,7 @@ const Home = () => (
         {data[1].categories.map((category) => (
           <div key={category.id}>
             {category.label ? (
-              <button className="flex items-center px-0.5 font-title text-xs uppercase tracking-wide text-gray-500">
+              <button className="flex w-full items-center px-0.5 font-title text-xs uppercase tracking-wide text-gray-500 hover:text-gray-100">
                 <Icons.ArrowComponent className="mr-0.5 h-3 w-3" />
                 {category.label}
               </button>
@@ -42,16 +42,27 @@ function ChannelLink({ channel }) {
   const params = useParams();
   const Icon = channel.icon ? Icons[channel.icon] : Icons.Hashtag;
   const active = +params.channelID === +channel.id;
+  let state = active
+    ? "active"
+    : channel.unread
+    ? "inactiveUnread"
+    : "inactiveRead";
+  let classes = {
+    active: "bg-gray-550/60 text-white",
+    inactiveUnread: "text-white hover:bg-gray-550/40 active:bg-gray-550/60",
+    inactiveRead:
+      "text-gray-500 hover:bg-gray-550/40 hover:text-gray-200 active:bg-gray-550/60",
+  };
 
   return (
     <Link
       to={`/servers/1/channels/${channel.id}`}
-      className={`${
-        active
-          ? "bg-gray-550/40 text-white"
-          : "text-gray-500 hover:bg-gray-550/40 hover:text-gray-200"
-      } group mx-2 flex items-center rounded py-1 pl-2 pr-2.5  `}
+      className={`${classes[state]} group relative mx-2 flex items-center rounded py-1 pl-2 pr-2.5`}
     >
+      {state === "inactiveUnread" ? (
+        <div className="absolute -left-2 h-2 w-1 rounded-r-full bg-white" />
+      ) : null}
+
       <Icon className="mr-1.5 h-5 w-5 text-gray-525" />
       {channel.label}
       <Icons.AddPerson
