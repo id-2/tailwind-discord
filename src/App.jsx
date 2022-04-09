@@ -12,12 +12,12 @@ const App = () => {
   return (
     <>
       <div className="flex h-screen text-gray-200">
-        <div className="bg-gray-900 p-3 space-y-2 overflow-y-scroll">
+        <div className="space-y-2 overflow-y-scroll bg-gray-900 p-3">
           <NavLink href="/">
-            <DiscordIcon className="w-7 h-5" />
+            <DiscordIcon className="h-5 w-7" />
           </NavLink>
 
-          <hr className="border-t-[rgba(79,84,92,0.48)] border-t-2 mx-2 rounded" />
+          <hr className="mx-2 rounded border-t-2 border-t-[rgba(79,84,92,0.48)]" />
 
           {servers.map((item) => (
             <NavLink href={`/servers/${item.id}`} key={item.id}>
@@ -49,22 +49,22 @@ function NavLink({ href, children }) {
   const route = useLocation();
 
   return (
-    <div className="relative group">
+    <div className="group relative">
       <div
         className={`${
           route.pathname === href
             ? "h-10"
-            : "h-5 opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100"
-        } absolute w-1  bg-white -left-3 top-1/2 -translate-y-1/2 rounded-r transition-all duration-200 origin-left`}
+            : "h-5 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100"
+        } absolute -left-3  top-1/2 w-1 origin-left -translate-y-1/2 rounded-r bg-white transition-all duration-200`}
       />
       <Link to={href}>
         <div className="group-active:translate-y-px">
           <div
             className={`${
               route.pathname === href
-                ? "bg-brand text-white rounded-2xl"
-                : "bg-gray-700 text-gray-100 rounded-3xl group-hover:bg-brand group-hover:text-white group-hover:rounded-2xl transition-all duration-200"
-            }  w-12 h-12 flex items-center justify-center overflow-hidden`}
+                ? "rounded-2xl bg-brand text-white"
+                : "rounded-3xl bg-gray-700 text-gray-100 transition-all duration-200 group-hover:rounded-2xl group-hover:bg-brand group-hover:text-white"
+            }  flex h-12 w-12 items-center justify-center overflow-hidden`}
           >
             {children}
           </div>
