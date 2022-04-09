@@ -1,10 +1,15 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import * as Icons from "./components/icons";
-import data from "./data.json";
+import { data } from "./data";
 
 const Home = () => {
+  const params = useParams();
   const [closedCategories, setClosedCategories] = useState([]);
+
+  const servers = data[params.id]?.categories;
+  const channels = servers.map((item) => item.channels).flat();
+  const channel = channels.find((item) => +item.id === +params.channelID);
 
   const toggleCategory = (categoryID) => {
     setClosedCategories((prev) =>
@@ -33,7 +38,7 @@ const Home = () => {
                   className="flex w-full items-center px-0.5 font-title text-xs uppercase tracking-wide text-gray-500 hover:text-gray-100"
                   onClick={() => toggleCategory(category.id)}
                 >
-                  <Icons.ArrowComponent
+                  <Icons.Arrow
                     className={`${
                       closedCategories.includes(category.id) ? "-rotate-90" : ""
                     } mr-0.5 h-3 w-3 transition`}
@@ -56,9 +61,53 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className="flex flex-1 flex-col bg-gray-600">
-        <div className="p-3 text-white shadow-sm">General</div>
-        <div className="flex-1 space-y-2 overflow-y-scroll p-4"></div>
+      <div className="flex min-w-0 flex-1 flex-col bg-gray-700">
+        <div className="flex h-12 items-center px-2 shadow-sm">
+          <div className="flex items-center">
+            <Icons.Hashtag className="mx-2 h-6 w-6 font-semibold text-gray-400" />
+            <span className="mr-2 font-title text-white">{channel.label}</span>
+          </div>
+
+          {channel.description ? (
+            <>
+              <div className="ml-2 h-6 w-px bg-gray-550/[.48]" />
+              <div className="ml-4 truncate text-sm font-medium text-gray-300">
+                {channel.description}
+              </div>
+            </>
+          ) : null}
+
+          <div className="ml-auto flex items-center">
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.HashtagWithSpeechBubble className="mx-2 h-6 w-6" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.Bell className="mx-2 h-6 w-6" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.Pin className="mx-2 h-6 w-6" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.People className="mx-2 h-6 w-6" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.Inbox className="mx-2 h-6 w-6" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.QuestionCircle className="mx-2 h-6 w-6" />
+            </button>
+          </div>
+        </div>
+        <div className="flex-1 space-y-4 overflow-y-scroll p-3">
+          {[...Array(40)].map((_, i) => (
+            <p key={i}>
+              Message {i}. Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Vel saepe laudantium sed reprehenderit incidunt! Hic rem
+              quos reiciendis, fugit quae ratione beatae veniam laborum
+              voluptatem, iusto dolorum, voluptates suscipit quia.
+            </p>
+          ))}
+        </div>
       </div>
     </>
   );
